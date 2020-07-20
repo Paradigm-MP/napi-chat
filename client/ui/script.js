@@ -471,11 +471,7 @@ $(document).ready(function()
         }
 
         // Spacebar or shift, prevents scrolling
-        if (keycode === 32 || keycode == 16) 
-        {
-            e.preventDefault();
-            return false;
-        }
+        PreventScrolling(keycode, e);
 
     };
 
@@ -580,7 +576,7 @@ $(document).ready(function()
     function PreventScrolling(keycode, e)
     {
         // Spacebar or shift, prevents scrolling
-        if (keycode === 32 || keycode == 16) 
+        if ((keycode === 32 || keycode == 16) && !open) 
         {
             e.preventDefault();
             return false;
