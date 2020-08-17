@@ -151,22 +151,12 @@ $(document).ready(function()
                 $(`#m_${obj.mn}`).html(html);
             }
 
-            $('.message-area').stop();
-
-            if (!switched_channels)
+            $('.message-area').animate({
+                scrollTop: $('.message-area')[0].scrollHeight
+            }, 500, function() 
             {
-                $('.message-area').animate({
-                    scrollTop: $('.message-area')[0].scrollHeight
-                }, 1000, function() 
-                {
-                    
-                });
-            }
-            else
-            {
-                $('.message-area').scrollTop($('.message-area')[0].scrollHeight);
-            }
-
+                
+            });
 
             $('#d_' + obj.mn).hide().fadeIn(250);
 
@@ -225,6 +215,9 @@ $(document).ready(function()
         if (!open)
         {
             ToggleOpen();
+            
+            $('.message-area').stop();
+            $('.message-area').scrollTop($('.message-area')[0].scrollHeight);
         }
 
         window_hide_timeout = setTimeout(() => {
