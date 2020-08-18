@@ -1,6 +1,6 @@
 $(document).ready(function() 
 {
-    let res_name = NAPI.GetParentResourceName();
+    let res_name = OOF.GetParentResourceName();
     const type_key = 84; // T
     const close_key = 27; // Escape
     const send_key = 13; // Enter
@@ -308,11 +308,11 @@ $(document).ready(function()
 
     function GetWindowFocus()
     {
-        NAPI.GetFocus(window);
-        NAPI.GetFocus($("#input-area"));
+        OOF.GetFocus(window);
+        OOF.GetFocus($("#input-area"));
         setTimeout(() => {
             $("#input-area").focus();
-            NAPI.GetFocus($("#input-area"));
+            OOF.GetFocus($("#input-area"));
         }, 50);
     }
 
@@ -329,7 +329,7 @@ $(document).ready(function()
             let msg = $("#input-area").val();
             if (msg.length > 0 && can_send && current_channel != null && current_channel != "Log")
             {
-                NAPI.CallEvent('chat/submit_message', {msg: msg, channel: current_channel})
+                OOF.CallEvent('chat/submit_message', {msg: msg, channel: current_channel})
                 msg_history.splice(0, 0, msg); // Add to message history
                 msg_history_index = 0;
             }
@@ -348,7 +348,7 @@ $(document).ready(function()
                 transitioning = false;
             });
 
-            NAPI.CallEvent(`chat/input_state`, {state: false});
+            OOF.CallEvent(`chat/input_state`, {state: false});
             $('html').css('pointer-events', 'none');
             $('html').blur();
             can_send = false;
@@ -374,7 +374,7 @@ $(document).ready(function()
             $("#input-area").val("");
             $('html').css('pointer-events', 'none');
             $('html').blur();
-            NAPI.CallEvent(`chat/input_state`, {state: false});
+            OOF.CallEvent(`chat/input_state`, {state: false});
             StartWindowHideTimeout();
         }
         else if (keycode == type_key && !typing && !transitioning && can_open)
@@ -394,7 +394,7 @@ $(document).ready(function()
             $('html').css('pointer-events', 'auto');
             $("#input-area").val("");
             $("#input-area").select();
-            NAPI.CallEvent(`chat/input_state`, {state: true});
+            OOF.CallEvent(`chat/input_state`, {state: true});
         }
         else if (keycode == 9 && open && typing) // tab
         {
@@ -517,7 +517,7 @@ $(document).ready(function()
             stack_data = [];
         }
 
-        //NAPI.CallEvent(`chat/input_state`, {state: false});
+        //OOF.CallEvent(`chat/input_state`, {state: false});
     }
 
     function FadeOutWindow()
@@ -576,63 +576,63 @@ $(document).ready(function()
         }
     }
 
-    NAPI.Subscribe('chat/toggle_enabled', function(args)
+    OOF.Subscribe('chat/toggle_enabled', function(args)
     {
         can_open = args.can_open;
     })
 
-    NAPI.Subscribe('chat/init_config', function(args)
+    OOF.Subscribe('chat/init_config', function(args)
     {
         InitConfig(args);
     })
 
-    NAPI.Subscribe('chat/add_message', function(args)
+    OOF.Subscribe('chat/add_message', function(args)
     {
         AddMessage(args);
     })
 
-    NAPI.Subscribe('chat/clear_chat', function()
+    OOF.Subscribe('chat/clear_chat', function()
     {
         ClearChat();
     })
 
-    NAPI.Subscribe('chat/toggle_open', function()
+    OOF.Subscribe('chat/toggle_open', function()
     {
         ToggleOpen();
     })
 
-    NAPI.Subscribe('chat/store_name', function(args)
+    OOF.Subscribe('chat/store_name', function(args)
     {
         my_name = args.name;
     })
 
-    NAPI.Subscribe('KeyUp', function(args)
+    OOF.Subscribe('KeyUp', function(args)
     {
         return OnKeyUp(args.key, args.event);
     })
 
-    NAPI.Subscribe('KeyDown', function(args)
+    OOF.Subscribe('KeyDown', function(args)
     {
         return PreventScrolling(args.key, args.event)
     })
 
-    NAPI.Subscribe('KeyPress', function(args)
+    OOF.Subscribe('KeyPress', function(args)
     {
         return PreventScrolling(args.key, args.event)
     })
             
-    NAPI.Subscribe('chat/remove_player', function(args)
+    OOF.Subscribe('chat/remove_player', function(args)
     {
         const name = args.name;
         if (players.indexOf(name) > -1) {players.splice(players.indexOf(name), 1);}
     })
 
-    NAPI.Subscribe('chat/start_typing', function()
+    OOF.Subscribe('chat/start_typing', function()
     {
         OnKeyUp(type_key);
     })
 
-    NAPI.Subscribe('chat/add_player', function(args)
+    OOF.Subscribe('chat/add_player', function(args)
     {
         if (!players.includes(args.name))
         {
@@ -640,5 +640,5 @@ $(document).ready(function()
         }
     })
 
-    NAPI.CallEvent(`chat/ui_ready`);
+    OOF.CallEvent(`chat/ui_ready`);
 })

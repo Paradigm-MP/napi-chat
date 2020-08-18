@@ -1,2 +1,2 @@
-# napi-chat
-NAPI module for chat
+# oof-chat
+OOF module for chat
