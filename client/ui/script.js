@@ -1,6 +1,5 @@
 $(document).ready(function() 
 {
-    let res_name = OOF.GetParentResourceName();
     const type_key = 84; // T
     const close_key = 27; // Escape
     const send_key = 13; // Enter
