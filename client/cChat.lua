@@ -27,6 +27,10 @@ function Chat:__init()
         self:SubmitMessage(args)
     end)
 
+    self.ui:Subscribe('chat/toggle_visible', function(args)
+        self:ToggleVisible(args)
+    end)
+
     self.ui:Subscribe('chat/ui_ready', function()
         self:UIReady()
     end)
@@ -97,6 +101,15 @@ function Chat:InputStateChanged(args)
         UI:SetFocus(false)
     end
     Events:Fire('ChatInputStateChanged', args)
+end
+
+function Chat:ToggleVisible(args)
+    self.visible = visible
+    if visible then
+        self.ui:BringToFront()
+    else
+        self.ui:SendToBack()
+    end
 end
 
 function Chat:SubmitMessage(args)

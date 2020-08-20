@@ -516,7 +516,7 @@ $(document).ready(function()
             stack_data = [];
         }
 
-        //OOF.CallEvent(`chat/input_state`, {state: false});
+        OOF.CallEvent('chat/toggle_visible', {visible: open});
     }
 
     function FadeOutWindow()
