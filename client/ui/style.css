@@ -212,7 +212,7 @@ span.player-name:hover
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.75);*/
 }
 
-#tag
+.tag
 {
 	position: relative;
     bottom: 2px;

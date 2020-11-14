@@ -94,9 +94,9 @@ function ChatUtility:FormatPlayerMessage(args)
 	if args.player:GetValue('Nametags') ~= nil then
 		for k,v in pairs(args.player:GetValue('Nametags')) do
 			local tag = v
-			htmlTags = htmlTags .. string.format('<span id="tag" style="background-color:%s;">%s</span>', tag.color, tag.name)
+			htmlTags = htmlTags .. string.format('<span class="tag" style="background-color:%s;">%s</span>', tag.color, tag.name)
 			
-			isAdmin = string.upper(tag.name.toUpperCase()) == "ADMIN"
+			isAdmin = string.upper(string.upper(tag.name)) == "ADMIN"
         end
     end
 
@@ -109,7 +109,7 @@ function ChatUtility:FormatPlayerMessage(args)
 		obj.everyone = true
     end
 
-    
+
     html = self:FormatChatMessage(html);
     obj.html = html;
     
