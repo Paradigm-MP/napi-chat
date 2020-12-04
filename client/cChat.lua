@@ -63,7 +63,9 @@ function Chat:__init()
         self:LocalPlayerChat(args)
     end)
 
-    KeyPress:Subscribe(Control.MpTextChatAll)
+    if IsRedM then
+        KeyPress:Subscribe(Control.MpTextChatAll)
+    end
 
     Events:Subscribe('KeyUp', function(args)
         self:KeyUp(args)
