@@ -63,13 +63,16 @@ function Chat:__init()
         self:LocalPlayerChat(args)
     end)
 
-    if IsRedM then
-        KeyPress:Subscribe(Control.MpTextChatAll)
-    end
+    self.control = IsRedM and Control.MpTextChatAll or Control.INPUT_MP_TEXT_CHAT_ALL
+    KeyPress:Subscribe(self.control)
 
     Events:Subscribe('KeyUp', function(args)
         self:KeyUp(args)
     end)
+
+    if SetTextChatEnabled then
+        SetTextChatEnabled(false)
+    end
 end
 
 function Chat:Debug(args)
@@ -88,7 +91,7 @@ end
 
 -- KeyUp needed when no NUI has focus
 function Chat:KeyUp(args)
-    if args.key == Control.MpTextChatAll then
+    if args.key == self.control then
         self.ui:CallEvent('chat/start_typing')
     end
 end
