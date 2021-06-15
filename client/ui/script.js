@@ -68,7 +68,7 @@ $(document).ready(function()
                     return;
                 }
             }
-            obj.mi = messages[obj.channel].length;
+            obj.mi = typeof messages[obj.channel] != 'undefined' ? messages[obj.channel].length : 0;
 
             if (obj.msg != undefined)
             {
