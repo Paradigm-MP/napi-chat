@@ -5,8 +5,6 @@ function Chat:__init()
     self.my_name = ''
     self.open = false
 
-    SetTextChatEnabled(false)
-
     self.ui = UI:Create({
         name = "chat", 
         path = "chat/client/ui/index.html",
@@ -18,6 +16,7 @@ function Chat:__init()
         },
         visible = false
     })
+    self.ui:SendToBack()
 
     self.ui:Subscribe('chat/input_state', function(args)
         self:InputStateChanged(args)
@@ -103,6 +102,7 @@ function Chat:InputStateChanged(args)
         self.ui:BringToFront()
         UI:SetFocus(true)
     else
+        self.ui:SendToBack()
         UI:SetFocus(false)
     end
     Events:Fire('ChatInputStateChanged', args)
